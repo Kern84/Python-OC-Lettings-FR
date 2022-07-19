@@ -11,13 +11,13 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-        pkg-manager: pip
+          pkg-manager: pip
       - run:
-        name: Run Tests
-        command: pytest
+          name: Run Tests
+          command: pytest
       - run:
-        name : Run Linting
-        command: flake8
+          name : Run Linting
+          command: flake8
   build_push:
     docker: 
       - image: cimg/python:3.10
@@ -31,13 +31,13 @@ workflows:
   build_test_deploy:
     jobs:
       - build_test:
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
       - build_push:
-        requires:
-          - build_test
-        filters:
-          branches:
-            only: master
+          requires:
+            - build_test
+          filters:
+            branches:
+              only: master
 
