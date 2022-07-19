@@ -1,10 +1,10 @@
 version 2.1
 
-orbs:
-    python: circleci/python@2.0.3
-    docker: circleci/docker@2.1.2
+orbs: 
+  python: circleci/python@2.0.3
+  docker: circleci/docker@2.1.2
 
-jobs:
+jobs: 
   build_test:
     docker:
       - image: circleci/python:3.10
