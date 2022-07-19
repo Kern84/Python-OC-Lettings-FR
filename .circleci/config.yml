@@ -25,6 +25,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - docker/check
+      - run:
+        name: test
+        command: hello
 
 
 workflows:
