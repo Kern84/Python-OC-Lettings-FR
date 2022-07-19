@@ -31,6 +31,3 @@ workflows:
   build:
     jobs:
       - build_test
-      - build_push:
-        requires:
-          - build_test
