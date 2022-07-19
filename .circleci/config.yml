@@ -31,7 +31,6 @@ jobs:
           tag: 0.1.<< pipeline.number >>
       - docker/push:
           image: $DOCKER_LOGIN/oc_lettings
-          tag: "latest"
 
 
 workflows:
