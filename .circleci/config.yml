@@ -18,6 +18,7 @@ jobs:
       - run:
           name : Run Linting
           command: flake8
+
   build_push:
     docker: 
       - image: cimg/python:3.10
@@ -25,6 +26,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - docker/check
+      - docker/build:
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+          extra_build_args: "-t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME"
+          tag: 0.1.<< pipeline.number >>
+      - docker/push:
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+          tag: "latest"
 
 
 workflows:
