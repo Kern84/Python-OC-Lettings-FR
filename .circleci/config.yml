@@ -1,23 +1,23 @@
 version 2.1
 
-orbs: 
-  python: circleci/python@2.0.3
-  docker: circleci/docker@2.1.2
+orbs:
+    python: circleci/python@2.0.3
+    docker: circleci/docker@2.1.2
 
-jobs: 
+jobs:
   build_test:
     docker:
       - image: circleci/python:3.10
     steps:
       - checkout
       - python/install-packages:
-        pkg-manager: pip
+          pkg-manager: pip
       - run:
-        name: Run Tests
-        command: pytest
+          name: Run Tests
+          command: pytest
       - run:
-        name : Run Linting
-        command: flake8
+          name : Run Linting
+          command: flake8
   build_push:
     docker: 
       - image: circleci/python:3.10
@@ -31,3 +31,6 @@ workflows:
   build:
     jobs:
       - build_test
+      - build_push:
+        requires:
+          - build_test
