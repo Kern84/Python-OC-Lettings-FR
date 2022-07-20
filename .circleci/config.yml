@@ -27,25 +27,13 @@ jobs:
       - checkout
       - docker/check
       - run: 
-        name: Build Push Docker Image
-        command: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
-          docker build -t $DOCKER_LOGIN/oc_lettings:$TAG .
-          docker tag $DOCKER_LOGIN/oc_lettings:$TAG $DOCKER_LOGIN/oc_lettings:latest
-          docker push $DOCKER_LOGIN/oc_lettings:$TAG
-          docker push $DOCKER_LOGIN/oc_lettings:latest
-
-  build_push2:
-    executor: docker/docker
-    steps:
-      - setup_remote_docker
-      - checkout
-      - docker/check
-      - docker/build:
-          image: $DOCKER_LOGIN/oc_lettings
-      - docker/push:
-          image: adrienlr/oc_lettings
-
+          name: Build Push Docker Image
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+            docker build -t $DOCKER_LOGIN/oc_lettings:$TAG .
+            docker tag $DOCKER_LOGIN/oc_lettings:$TAG $DOCKER_LOGIN/oc_lettings:latest
+            docker push $DOCKER_LOGIN/oc_lettings:$TAG
+            docker push $DOCKER_LOGIN/oc_lettings:latest
 
 workflows:
   build_test_deploy:
