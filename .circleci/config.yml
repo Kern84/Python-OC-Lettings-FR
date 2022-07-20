@@ -20,6 +20,22 @@ jobs:
           command: flake8
 
   build_push:
+    docker:
+      - image: cimg/python:3.10
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - run: 
+        name: Build Push Docker Image
+        command: |
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+          docker build -t $DOCKER_LOGIN/oc_lettings:$TAG .
+          docker tag $DOCKER_LOGIN/oc_lettings:$TAG $DOCKER_LOGIN/oc_lettings:latest
+          docker push $DOCKER_LOGIN/oc_lettings:$TAG
+          docker push $DOCKER_LOGIN/oc_lettings:latest
+
+  build_push2:
     executor: docker/docker
     steps:
       - setup_remote_docker
