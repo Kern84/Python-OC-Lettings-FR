@@ -27,10 +27,11 @@ jobs:
       - setup_remote_docker
       - docker/check
       - docker/build:
-          image: $DOCKER_LOGIN/oc_lettings
+          image: ${DOCKER_LOGIN}/oc_lettings
           tag: 0.1.<< pipeline.number >>
       - docker/push:
-          image: $DOCKER_LOGIN/oc_lettings
+          image: ${DOCKER_LOGIN}/oc_lettings
+          tag: 0.1.<< pipeline.number >>
 
 
 workflows:
