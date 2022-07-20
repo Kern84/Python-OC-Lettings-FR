@@ -29,7 +29,6 @@ jobs:
           image: $DOCKER_LOGIN/oc_lettings
       - docker/push:
           image: adrienlr/oc_lettings
-          tag: "latest"
 
 
 workflows:
