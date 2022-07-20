@@ -28,7 +28,7 @@ jobs:
       - docker/build:
           image: $DOCKER_LOGIN/oc_lettings
       - docker/push:
-          image: $DOCKER_LOGIN/oc_lettings
+          image: adrienlr/oc_lettings
 
 
 workflows:
