@@ -22,15 +22,13 @@ jobs:
   build_push:
     executor: docker/docker
     steps:
-      - checkout
       - setup_remote_docker
+      - checkout
       - docker/check
       - docker/build:
           image: $DOCKER_LOGIN/oc_lettings
-          tag: 0.1.<< pipeline.number >>
       - docker/push:
-          image: $DOCKER_LOGIN/adrienlr/oc_lettings
-          tag: "latest"
+          image: $DOCKER_LOGIN/oc_lettings
 
 
 workflows:
