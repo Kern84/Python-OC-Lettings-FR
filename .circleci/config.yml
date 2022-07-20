@@ -29,7 +29,7 @@ jobs:
           image: $DOCKER_LOGIN/oc_lettings
           tag: 0.1.<< pipeline.number >>
       - docker/push:
-          image: $DOCKER_LOGIN/oc_lettings
+          image: $DOCKER_LOGIN/adrienlr/oc_lettings
           tag: "latest"
 
 
