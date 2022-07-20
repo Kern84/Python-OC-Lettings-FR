@@ -26,13 +26,12 @@ jobs:
       - setup_remote_docker
       - checkout
       - docker/check
-      - run:
-          name: Build Docker Image
-          command: docker build -t $DOCKER_LOGIN/oc_lettings:$TAG .
       - run: 
-          name: Push Docker Image
+          name: Build And Push Docker Image
           command: |
+            TAG=0.0.$CIRCLE_BUILD_NUM
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+            docker build -t $DOCKER_LOGIN/oc_lettings:$TAG .
             docker tag $DOCKER_LOGIN/oc_lettings:$TAG $DOCKER_LOGIN/oc_lettings:latest
             docker push $DOCKER_LOGIN/oc_lettings:$TAG
             docker push $DOCKER_LOGIN/oc_lettings:latest
