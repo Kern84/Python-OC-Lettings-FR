@@ -3,6 +3,7 @@ version: 2.1
 orbs: 
   python: circleci/python@2.0.3
   docker: circleci/docker@2.1.2
+  heroku: circleci/heroku@1.2.6
 
 jobs:
   build_test:
@@ -36,8 +37,21 @@ jobs:
             docker push $DOCKER_LOGIN/oc_lettings:$TAG
             docker push $DOCKER_LOGIN/oc_lettings:latest
 
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          name: Deploy to Heroku
+          command: |
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} web
+
+
 workflows:
-  build_test_deploy:
+  build_master:
     jobs:
       - build_test:
           filters:
@@ -49,4 +63,7 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy:
+          requires:
+            - build_push
 
