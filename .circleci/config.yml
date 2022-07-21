@@ -67,4 +67,7 @@ workflows:
       - deploy:
           requires:
             - build_push
+          filters:
+            branches:
+              only: master
 
