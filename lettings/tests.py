@@ -28,6 +28,7 @@ class TestLettings(TestCase):
             country_iso_code="USA",
         )
         letting = Letting.objects.create(title="United Center", address=address)
+        expected_title = letting.title
         response = self.client.get(self.url_letting)
         assert response.status_code == 200
-        assert "<title>United Center</title>" in response.content.decode()
+        assert expected_title in response.content.decode()

@@ -27,6 +27,7 @@ class TestProfiles(TestCase):
             email="michael@email.fr",
         )
         profile = Profile.objects.create(user=user, favorite_city="Chicago")
+        expected_title = profile.user.username
         response = self.client.get(self.url_profile)
         assert response.status_code == 200
-        assert "<title>MJ</title>" in response.content.decode()
+        assert expected_title in response.content.decode()
