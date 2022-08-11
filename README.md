@@ -74,3 +74,55 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+## Déploiement
+
+Le déploiement s'opère à travers l'utilisation des technologies :
+
+- CircleCI
+- Docker / DockerHub
+- Heroku
+- Sentry
+
+Vous devez posséder un compte pour chaqune de ses applications.
+
+Le cheminement du pipeline: 
+- Fait d'abord passer les tests et vérifie la conformité à la PEP8;
+- Si les vérifications sont correctement passées, une image docker est créée puis poussée sur DockerHub;
+- Si la poussée est validée, l'application est déployée sur Heroku.
+
+### CircleCI
+https://app.circleci.com/pipelines/github/Kern84/Python-OC-Lettings-FR
+
+A cette adresse vous pouvez voir tous les pipelines qui ont été lancé.
+Pour que le code fonctionne dans une autre configuration vous devez enregistrer dans l'onglet "Environment Variables" les clés suivantes:
+- DOCKER_LOGIN : Nom du User Docker
+- DOCKER_PASSWORD : Mot de passe généré dans Docker
+- HEROKU_API_KEY : Nom de la clé API de Heroku
+- HEROKU_APP_NAME : Nom de l'application Heroku
+
+### Heroku
+https://oc-lettings-application.herokuapp.com/
+
+Vous pouvez consulter l'application à cette adresse.
+
+### DockerHub
+https://hub.docker.com/repository/docker/adrienlr/oc_lettings
+
+Vous pouvez consulter les images Docker qui ont été poussées.
+
+Pour lancer une image Docker en local en la récupérant depuis DockerHub:
+- Vous devez avoir installer Docker préalablement sur votre machine.
+- Entrer la ligne de commande dans votre terminal:
+`docker run -it -p 8000:8000 nom_du_compte_docker/nom_du_dépot_dockerhub:tag_dockerhub`
+
+Par exemple :
+`docker run -it -p 8000:8000 adrienlr/oc_lettings:0.0.69`
+
+Le site sera disponible localement à l'adresse http://127.0.0.1:8000/
+
+### Sentry
+https://sentry.io/organizations/alr84/issues/?project=6593803
+
+Vous pouvez consulter le monitoring Sentry de l'application à cette adresse.
